@@ -1,0 +1,742 @@
+/* ==========================================================================
+   SMART BUS ACCESSIBILITY DASHBOARD CSS
+   ========================================================================== */
+
+/* Design Tokens & Theme Variables */
+:root {
+  --bg-color: hsl(222, 47%, 8%);
+  --card-bg: hsl(222, 47%, 14%);
+  --card-border: hsl(222, 47%, 20%);
+  
+  /* Primary contrast highlight (Amber/Gold for high accessibility visibility) */
+  --color-primary: hsl(45, 100%, 50%);
+  --color-primary-rgb: 255, 191, 0;
+  
+  /* Secondary contrast highlight (Cyan for informative items) */
+  --color-secondary: hsl(190, 100%, 45%);
+  
+  /* Status Colors */
+  --color-success: hsl(142, 70%, 48%);
+  --color-success-bg: hsl(142, 76%, 15%);
+  --color-alert: hsl(12, 90%, 55%);
+  --color-alert-bg: hsl(12, 90%, 15%);
+  
+  /* Text colors */
+  --text-main: hsl(0, 0%, 100%);
+  --text-muted: hsl(215, 20%, 75%);
+  --text-dark: hsl(222, 47%, 8%);
+  
+  /* Layout tokens */
+  --card-radius: 20px;
+  --transition-smooth: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Reset and Global Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent; /* Disable default webkit tap highlight */
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-x: hidden;
+  padding: env(safe-area-inset-top) 16px env(safe-area-inset-bottom) 16px;
+}
+
+/* Base Accessible Font Settings */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+
+/* Screen Reader Only Utility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+/* ==========================================================================
+   Layout Containers
+   ========================================================================== */
+
+/* Centered Mobile Frame Mockup */
+.dashboard-container {
+  width: 100%;
+  max-width: 480px; /* Perfect smartphone layout width */
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: fadeInContainer 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeInContainer {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ==========================================================================
+   Premium Cards styling
+   ========================================================================== */
+.card {
+  background-color: var(--card-bg);
+  border: 2px solid var(--card-border);
+  border-radius: var(--card-radius);
+  padding: 24px;
+  box-shadow: 0 10px 30px -15px rgba(0, 0, 0, 0.5);
+  transition: var(--transition-smooth);
+}
+
+.card:hover, .card:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 12px 35px -12px rgba(var(--color-primary-rgb), 0.15);
+  transform: translateY(-2px);
+}
+
+/* Generic Section Title inside Cards */
+.card-section-title {
+  color: var(--color-primary);
+  font-size: 1.1rem;
+  letter-spacing: 0.1em;
+  font-weight: 800;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Helper Class for Gold accent */
+.text-gold {
+  color: var(--color-primary) !important;
+}
+
+/* ==========================================================================
+   1. Welcome / Speech Activation Overlay
+   ========================================================================== */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg-color);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.overlay.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.overlay-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  max-width: 400px;
+}
+
+#overlay-title {
+  font-size: 3rem;
+  line-height: 1.1;
+  color: var(--color-primary);
+  font-weight: 800;
+  word-wrap: break-word;
+}
+
+#overlay-desc {
+  font-size: 1.4rem;
+  color: var(--text-main);
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.large-tap-icon {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: rgba(var(--color-primary-rgb), 0.1);
+  border: 4px solid var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-primary);
+  margin-bottom: 30px;
+  animation: pulseIcon 2s infinite ease-in-out;
+}
+
+@keyframes pulseIcon {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(var(--color-primary-rgb), 0.4);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 40px 10px rgba(var(--color-primary-rgb), 0.2);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(var(--color-primary-rgb), 0);
+  }
+}
+
+.pulse-text {
+  animation: textGlow 1.5s infinite ease-in-out alternate;
+}
+
+@keyframes textGlow {
+  from {
+    text-shadow: 0 0 5px rgba(var(--color-primary-rgb), 0.3);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.8);
+  }
+}
+
+.sub-label {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+  background-color: var(--card-bg);
+  padding: 8px 16px;
+  border-radius: 30px;
+  border: 1px solid var(--card-border);
+}
+
+/* ==========================================================================
+   2. Header Card
+   ========================================================================== */
+.header-card {
+  padding: 20px 24px;
+  border-bottom: 4px solid var(--color-primary);
+}
+
+.app-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  color: var(--text-main);
+  margin-bottom: 8px;
+}
+
+.wifi-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 8px 16px;
+  border-radius: 30px;
+  border: 1px solid var(--card-border);
+}
+
+.wifi-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.pulse-green {
+  background-color: var(--color-success);
+  box-shadow: 0 0 0 rgba(34, 197, 94, 0.4);
+  animation: pulseGreenGlow 2s infinite;
+}
+
+@keyframes pulseGreenGlow {
+  0% {
+    box-shadow: 0 0 0 0px rgba(34, 197, 94, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(34, 197, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0px rgba(34, 197, 94, 0);
+  }
+}
+
+.wifi-text {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+}
+
+/* ==========================================================================
+   3. Bus Information Card
+   ========================================================================== */
+.bus-info-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.info-row {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-label {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-muted);
+  letter-spacing: 0.12em;
+}
+
+.bus-number {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  line-height: 1.1;
+  text-shadow: 0 2px 10px rgba(var(--color-primary-rgb), 0.15);
+}
+
+.divider {
+  height: 2px;
+  background-color: var(--card-border);
+  width: 100%;
+}
+
+.route-display {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.route-city {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+
+.route-arrow {
+  color: var(--color-secondary);
+  font-size: 1.5rem;
+  font-weight: bold;
+  animation: arrowSlide 1.5s infinite ease-in-out;
+}
+
+@keyframes arrowSlide {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(6px); }
+  100% { transform: translateX(0); }
+}
+
+/* ==========================================================================
+   4. Upcoming Stops Card (Timeline)
+   ========================================================================== */
+.stops-timeline {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-left: 8px;
+}
+
+.stop-item {
+  display: flex;
+  gap: 20px;
+  position: relative;
+  min-height: 70px;
+}
+
+/* Timeline vertical track lines */
+.timeline-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 24px;
+}
+
+.stop-dot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background-color: var(--card-border);
+  border: 3px solid var(--card-bg);
+  z-index: 2;
+  transition: var(--transition-smooth);
+}
+
+.timeline-line {
+  width: 4px;
+  flex-grow: 1;
+  background-color: var(--card-border);
+  z-index: 1;
+  margin: 4px 0;
+}
+
+/* Stop Item States */
+.stop-item.active .stop-dot {
+  background-color: var(--color-secondary);
+  border-color: var(--bg-color);
+  width: 20px;
+  height: 20px;
+}
+
+.stop-item.active .timeline-line {
+  background: linear-gradient(to bottom, var(--color-secondary), var(--card-border));
+}
+
+.stop-item.destination .dest-dot {
+  background-color: var(--color-primary);
+  width: 20px;
+  height: 20px;
+  border-radius: 4px; /* Distinct visual shape for final stop */
+}
+
+/* Cyan pulse for next stop indicator */
+.pulse-cyan {
+  box-shadow: 0 0 0 rgba(6, 182, 212, 0.4);
+  animation: pulseCyanGlow 1.8s infinite;
+}
+
+@keyframes pulseCyanGlow {
+  0% { box-shadow: 0 0 0 0px rgba(6, 182, 212, 0.8); }
+  70% { box-shadow: 0 0 0 10px rgba(6, 182, 212, 0); }
+  100% { box-shadow: 0 0 0 0px rgba(6, 182, 212, 0); }
+}
+
+.stop-details {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 24px;
+}
+
+.stop-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--text-main);
+  transition: var(--transition-smooth);
+}
+
+.stop-item.active .stop-name {
+  color: var(--color-secondary);
+  font-weight: 700;
+}
+
+.stop-item.pending .stop-name {
+  color: var(--text-muted);
+}
+
+/* Accessiblity Badges */
+.stop-status-pill {
+  background-color: rgba(6, 182, 212, 0.15);
+  border: 1px solid var(--color-secondary);
+  color: var(--color-secondary);
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.dest-pill {
+  background-color: rgba(255, 191, 0, 0.15);
+  border: 1px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+/* ==========================================================================
+   5. Status Card (Grid Layout)
+   ========================================================================== */
+.status-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.status-box {
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1.5px solid var(--card-border);
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.status-value {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.current-status-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pulse-green-small {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--color-success);
+  box-shadow: 0 0 8px var(--color-success);
+  animation: pulseGreenGlow 2s infinite;
+}
+
+/* ==========================================================================
+   6. Action Instructions Card & Touch Grid
+   ========================================================================== */
+.accessibility-notice {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+  font-weight: 500;
+}
+
+.action-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.action-tile {
+  background-color: rgba(255, 255, 255, 0.03);
+  border: 2px dashed var(--card-border);
+  border-radius: 14px;
+  padding: 20px 12px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+}
+
+.action-tile:hover, .action-tile:focus {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-style: solid;
+}
+
+.double-tap-tile:hover, .double-tap-tile:focus {
+  border-color: var(--color-success);
+  color: var(--color-success);
+}
+
+.long-press-tile:hover, .long-press-tile:focus {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.action-icon {
+  font-size: 1.5rem;
+}
+
+.action-desc {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.action-gesture {
+  font-size: 0.75rem;
+  font-weight: 800;
+  color: var(--text-muted);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.action-name {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.double-tap-tile:hover .action-name { color: var(--color-success); }
+.long-press-tile:hover .action-name { color: var(--color-primary); }
+
+/* ==========================================================================
+   7. Full-Screen Interactive Gesture Overlay (Boarding/Skipped Status)
+   ========================================================================== */
+.gesture-feedback-overlay {
+  background-color: rgba(var(--bg-color), 0.98);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Boarding Success State */
+.gesture-feedback-overlay.success-board {
+  border: 12px solid var(--color-success);
+}
+
+.gesture-feedback-overlay.success-board .feedback-circle {
+  background-color: var(--color-success-bg);
+  border: 6px solid var(--color-success);
+  color: var(--color-success);
+  box-shadow: 0 0 50px rgba(34, 197, 94, 0.3);
+}
+
+.gesture-feedback-overlay.success-board .feedback-msg {
+  color: var(--color-success);
+}
+
+/* Skipped Warning State */
+.gesture-feedback-overlay.skip-warning {
+  border: 12px solid var(--color-primary);
+}
+
+.gesture-feedback-overlay.skip-warning .feedback-circle {
+  background-color: var(--color-alert-bg);
+  border: 6px solid var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: 0 0 50px rgba(255, 191, 0, 0.3);
+}
+
+.gesture-feedback-overlay.skip-warning .feedback-msg {
+  color: var(--color-primary);
+}
+
+.gesture-feedback-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 380px;
+  animation: overlayPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes overlayPop {
+  from {
+    transform: scale(0.85);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.feedback-circle {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.feedback-circle svg {
+  width: 70px;
+  height: 70px;
+}
+
+.feedback-msg {
+  font-size: 2.8rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.feedback-submsg {
+  font-size: 1.3rem;
+  color: var(--text-main);
+  margin-bottom: 40px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.dismiss-btn {
+  background-color: var(--text-main);
+  color: var(--bg-color);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.1rem;
+  padding: 18px 40px;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  transition: var(--transition-smooth);
+  width: 100%;
+}
+
+.dismiss-btn:hover, .dismiss-btn:focus {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.dismiss-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* ==========================================================================
+   Responsive Viewports Configuration
+   ========================================================================== */
+@media (max-width: 480px) {
+  body {
+    padding: env(safe-area-inset-top) 8px env(safe-area-inset-bottom) 8px;
+  }
+  
+  .dashboard-container {
+    gap: 12px;
+    margin: 8px auto;
+  }
+  
+  .card {
+    padding: 16px;
+  }
+  
+  .bus-number {
+    font-size: 2.2rem;
+  }
+  
+  .route-city {
+    font-size: 1.35rem;
+  }
+  
+  #overlay-title {
+    font-size: 2.3rem;
+  }
+  
+  .feedback-msg {
+    font-size: 2.2rem;
+  }
+}
