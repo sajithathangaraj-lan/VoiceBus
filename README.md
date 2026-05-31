@@ -150,10 +150,11 @@ Bus-Stop-Alert-System/
 
 ## Bus Information Screen
 
+## Options
+
 ## Boarding Confirmation Screen
 
 ## Bus Skipped Screen
-
 
 
 #  Results
