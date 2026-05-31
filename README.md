@@ -136,12 +136,22 @@ Bus-Stop-Alert-System/
 ├── hardware/
 │   └── Workflow_Diagram.png
 ├── docs/
-    ├── Project_Report.pdf
-    ├── Home_Screen.jpeg
-    ├── Bus_Information_Screen.jpeg
-    ├── Options.jpeg
-    ├── Boarding_Confirmation.jpeg
-    └── Bus_Skipped_Screen.jpeg
+│   ├── Project_Report.pdf
+│   ├── Home_Screen.jpeg
+│    ├── Bus_Information_Screen.jpeg
+│    ├── Options.jpeg
+│   ├── Boarding_Confirmation.jpeg
+│   └── Bus_Skipped_Screen.jpeg
+├── android-app/
+│   ├── MainActivity.java
+│   ├── activity_main.xml
+│   ├── dialog_feedback.xml
+│   ├── AndroidManifest.xml
+│   └── drawable/
+│       ├── badge_background.xml
+│       ├── button_board_background.xml
+│       ├── button_skip_background.xml
+│       └── card_background.xml
 ```
 
 #  User Interface Screenshots
