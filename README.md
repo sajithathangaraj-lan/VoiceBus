@@ -138,8 +138,8 @@ Bus-Stop-Alert-System/
 ├── docs/
 │   ├── Project_Report.pdf
 │   ├── Home_Screen.jpeg
-│    ├── Bus_Information_Screen.jpeg
-│    ├── Options.jpeg
+│   ├── Bus_Information_Screen.jpeg
+│   ├── Options.jpeg
 │   ├── Boarding_Confirmation.jpeg
 │   └── Bus_Skipped_Screen.jpeg
 ├── android-app/
