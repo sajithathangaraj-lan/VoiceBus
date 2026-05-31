@@ -146,15 +146,15 @@ Bus-Stop-Alert-System/
 
 #  User Interface Screenshots
 
-## Home Screen
+## Home Screen(docs/Home_Screen.jpeg)
 
-## Bus Information Screen
+## Bus Information Screen(docs/Bus_Information_Screen.jpeg)
 
-## Options
+## Options(docs/Options.jpeg)
 
-## Boarding Confirmation Screen
+## Boarding Confirmation Screen(docs/Boarding_Confirmation.jpeg)
 
-## Bus Skipped Screen
+## Bus Skipped Screen(docs/Bus_Skipped.jpeg)
 
 
 #  Results
