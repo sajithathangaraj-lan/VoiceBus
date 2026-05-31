@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Bus Information System - Visually Impaired Dashboard</title>
+  <!-- Google Fonts for Ultra Readability -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- 1. Speech Activation Welcome Overlay (Acoustic Activation Requirement) -->
+  <div id="activation-overlay" class="overlay active" role="dialog" aria-labelledby="overlay-title" aria-describedby="overlay-desc">
+    <div class="overlay-content">
+      <h1 id="overlay-title" class="pulse-text">TAP ANYWHERE</h1>
+      <p id="overlay-desc">to activate the Voice Assistant Dashboard</p>
+      <div class="large-tap-icon" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" height="80px" viewBox="0 -960 960 960" width="80px" fill="currentColor"><path d="m382-80-87-251-215-87q-29-12-32.5-43.5T77-515l683-405q22-13 44.5-1t12.5 45L515-193q-13 25-41.5 28.5T432-192l-50 112Zm25-184 103-231 230-104-586 250 178 72 75 213Zm53-220Z"/></svg>
+      </div>
+      <span class="sub-label">Wi-Fi Hostspot: SiWG917-BusHotspot</span>
+    </div>
+  </div>
+
+  <!-- Main Mobile Dashboard Wrapper -->
+  <main class="dashboard-container" aria-live="polite" aria-atomic="true">
+    
+    <!-- 2. Header Card -->
+    <header class="card header-card" id="header-card">
+      <div class="header-main">
+        <h1 class="app-title">Smart Bus Information System</h1>
+        <div class="wifi-indicator" aria-label="Wi-Fi Hotspot Connected" role="status">
+          <span class="wifi-dot pulse-green"></span>
+          <span class="wifi-text">SiWG917-Hotspot Connected</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- 3. Bus Information Card -->
+    <section class="card bus-info-card" id="bus-info-card" aria-labelledby="bus-num-title">
+      <div class="info-row">
+        <span class="field-label">BUS NUMBER</span>
+        <h2 id="bus-num-title" class="bus-number">TN57 AB 1234</h2>
+      </div>
+      <div class="divider"></div>
+      <div class="info-row">
+        <span class="field-label">ROUTE</span>
+        <div class="route-display" aria-label="Route Coimbatore to Salem">
+          <span class="route-city">Coimbatore</span>
+          <span class="route-arrow" aria-hidden="true">➔</span>
+          <span class="route-city">Salem</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Upcoming Stops Card -->
+    <section class="card stops-card" id="stops-card" aria-labelledby="stops-title">
+      <h3 id="stops-title" class="card-section-title">UPCOMING STOPS</h3>
+      
+      <!-- Visual Vertical Timeline of Stops -->
+      <div class="stops-timeline" role="list">
+        <div class="stop-item active" role="listitem" aria-label="Stop 1: Avinashi. Current next stop.">
+          <div class="timeline-indicator">
+            <span class="stop-dot pulse-cyan"></span>
+            <span class="timeline-line"></span>
+          </div>
+          <div class="stop-details">
+            <span class="stop-name">Avinashi</span>
+            <span class="stop-status-pill">Next Stop</span>
+          </div>
+        </div>
+
+        <div class="stop-item pending" role="listitem" aria-label="Stop 2: Tirupur.">
+          <div class="timeline-indicator">
+            <span class="stop-dot"></span>
+            <span class="timeline-line"></span>
+          </div>
+          <div class="stop-details">
+            <span class="stop-name">Tirupur</span>
+          </div>
+        </div>
+
+        <div class="stop-item pending" role="listitem" aria-label="Stop 3: Perundurai.">
+          <div class="timeline-indicator">
+            <span class="stop-dot"></span>
+            <span class="timeline-line"></span>
+          </div>
+          <div class="stop-details">
+            <span class="stop-name">Perundurai</span>
+          </div>
+        </div>
+
+        <div class="stop-item pending" role="listitem" aria-label="Stop 4: Bhavani.">
+          <div class="timeline-indicator">
+            <span class="stop-dot"></span>
+            <span class="timeline-line"></span>
+          </div>
+          <div class="stop-details">
+            <span class="stop-name">Bhavani</span>
+          </div>
+        </div>
+
+        <div class="stop-item destination" role="listitem" aria-label="Final Destination: Salem.">
+          <div class="timeline-indicator">
+            <span class="stop-dot dest-dot"></span>
+          </div>
+          <div class="stop-details">
+            <span class="stop-name text-gold">Salem</span>
+            <span class="stop-status-pill dest-pill">Destination</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Status Card -->
+    <section class="card status-card" id="status-card" aria-labelledby="status-title">
+      <h3 id="status-title" class="sr-only">Bus Travel Status</h3>
+      <div class="status-grid">
+        <div class="status-box" aria-labelledby="dest-status-lbl">
+          <span class="field-label" id="dest-status-lbl">DESTINATION STATUS</span>
+          <span class="status-value text-gold" id="destination-status-val">Destination Covered</span>
+        </div>
+        <div class="status-box" aria-labelledby="current-status-lbl">
+          <span class="field-label" id="current-status-lbl">CURRENT STATUS</span>
+          <div class="current-status-badge">
+            <span class="pulse-green-small"></span>
+            <span class="status-value" id="current-status-val">Arriving</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. Action Status / Instruction Card -->
+    <section class="card instructions-card" id="instructions-card" aria-labelledby="instructions-title">
+      <h3 id="instructions-title" class="card-section-title">ACCESSIBLE ACTIONS</h3>
+      <p class="accessibility-notice">Double-tap or Long-press *anywhere* on the screen to control:</p>
+      
+      <div class="action-grid">
+        <div class="action-tile double-tap-tile" role="button" tabindex="0" aria-label="Double tap anywhere to Board Bus">
+          <span class="action-icon">🟢🟢</span>
+          <div class="action-desc">
+            <span class="action-gesture">DOUBLE TAP</span>
+            <span class="action-name">Board Bus</span>
+          </div>
+        </div>
+        
+        <div class="action-tile long-press-tile" role="button" tabindex="0" aria-label="Long press anywhere for 1 second to Skip Bus">
+          <span class="action-icon">🟡🕒</span>
+          <div class="action-desc">
+            <span class="action-gesture">LONG PRESS (1s)</span>
+            <span class="action-name">Skip Bus</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 7. Screen-wide Haptic Feedback Gesture Overlays -->
+  <div id="gesture-overlay" class="overlay gesture-feedback-overlay" role="alert" aria-live="assertive">
+    <div class="gesture-feedback-content">
+      <div class="feedback-circle" id="feedback-icon-container">
+        <!-- SVG dynamic icons populated via JS -->
+      </div>
+      <h2 id="feedback-title" class="feedback-msg">Boarding Bus</h2>
+      <p id="feedback-subtitle" class="feedback-submsg">Action Confirmed</p>
+      <button class="dismiss-btn" id="dismiss-overlay-btn" aria-label="Close notification and return to dashboard">TAP TO DISMISS</button>
+    </div>
+  </div>
+
+  <!-- Audio elements for high-quality tactile audio feedback -->
+  <audio id="sound-success" src="data:audio/wav;base64,UklGRjIAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA="></audio>
+  <audio id="sound-skip" src="data:audio/wav;base64,UklGRjIAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQAAAAA="></audio>
+
+  <!-- Script -->
+  <script src="app.js"></script>
+</body>
+</html>
