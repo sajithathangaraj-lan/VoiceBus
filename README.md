@@ -146,17 +146,25 @@ Bus-Stop-Alert-System/
 
 #  User Interface Screenshots
 
-## Home Screen(docs/Home_Screen.jpeg)
+## Home Screen
 
-## Bus Information Screen(docs/Bus_Information_Screen.jpeg)
+![Home Screen](docs/Home_Screen.jpeg)
 
-## Options(docs/Options.jpeg)
+## Bus Information Screen
 
-## Boarding Confirmation Screen(docs/Boarding_Confirmation.jpeg)
+![Bus Information Screen](docs/Bus_Information_Screen.jpeg)
 
-## Bus Skipped Screen(docs/Bus_Skipped.jpeg)
+## Options
 
+![Options](docs/Options.jpeg)
 
+## Boarding Confirmation Screen
+
+![Boarding Confirmation](docs/Boarding_Confirmation.jpeg)
+
+## Bus Skipped Screen
+
+![Bus Skipped](docs/Bus_Skipped.jpeg)
 #  Results
 
 The developed prototype successfully:
