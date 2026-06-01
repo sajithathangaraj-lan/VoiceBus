@@ -181,19 +181,19 @@ Bus-Stop-Alert-System/
 
 The developed prototype successfully:
 
-✅ Creates a Wi-Fi hotspot using SiWG917
+* Creates a Wi-Fi hotspot using SiWG917
 
-✅ Hosts an embedded web server
+* Hosts an embedded web server
 
-✅ Broadcasts bus information locally
+* Broadcasts bus information locally
 
-✅ Displays route and stop information
+* Displays route and stop information
 
-✅ Provides Text-to-Speech announcements
+* Provides Text-to-Speech announcements
 
-✅ Supports accessibility gestures
+* Supports accessibility gestures
 
-✅ Demonstrates a low-cost transportation assistance solution
+* Demonstrates a low-cost transportation assistance solution
 
 
 
